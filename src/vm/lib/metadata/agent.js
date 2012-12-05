@@ -402,7 +402,8 @@ MetadataAgent.prototype.makeMetadataHandler = function (zone, socket) {
       }
       // Non-string value
       else if (val) {
-        write("FAILURE\n");
+        var towrite = JSON.stringify(val).replace(/^\./mg, "..");
+        write("SUCCESS\n"+towrite+"\n.\n");
         return;
       }
       // Nothing to return
