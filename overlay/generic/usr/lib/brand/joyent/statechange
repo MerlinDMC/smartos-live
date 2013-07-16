@@ -150,6 +150,8 @@ setup_net()
 		vrid=$(eval echo \$_ZONECFG_net_${nic}_vrrp_vrid)
 		vrrp_primary_ip=$(eval \
 		    echo \$_ZONECFG_net_${nic}_vrrp_primary_ip)
+		limit_maxbw=$(eval \
+		    echo \$_ZONECFG_net_${nic}_limit_maxbw)
 
 		# If address set, must be a shared stack zone
 		[[ -n $address ]] && exit 0
@@ -297,6 +299,10 @@ setup_net()
 			fi
 		fi
 
+		if [[ -n ${limit_maxbw} ]]; then
+			dladm set-linkprop -t -z $ZONENAME -p \
+			"maxbw=${limit_maxbw}" ${nic}
+		fi
 
 		# Get the static IP for the vnic from the zone config file, but only
 		# if there's not an IP from the zone properties
