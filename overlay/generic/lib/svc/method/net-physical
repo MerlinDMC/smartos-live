@@ -384,7 +384,7 @@ if smf_is_globalzone; then
         if ! dladm show-vnic external0 > /dev/null; then
             vnic_up "${SYSINFO_NIC_external}" "external0" \
                 "${CONFIG_external_ip}" "${CONFIG_external_netmask}" \
-                "${CONFIG_external_vlan_id}" "" "primary" \
+                "${CONFIG_external_vlan_id}" "${CONFIG_external_mac}" "primary" \
                 "${CONFIG_external_mtu}"
         fi
     fi
